@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "Bellota";
+    src: url('../font/Bellota-Regular.otf');
+}
+
+body{
+    font-family: "Bellota";
+    color: #303030;
+    background-image: linear-gradient(to bottom right,  #FFF, #15c5bd);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+}
+form{  
+    justify-content: center;
+    margin: 20px;
+}::placeholder{
+    font-family: "Bellota";
+}
