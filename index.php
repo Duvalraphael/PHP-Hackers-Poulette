@@ -12,48 +12,57 @@
 </head>
 <body>
 <div class="container">
-	<form class="well span12" action="index.php">
+	<form class="well span12" action="index.php" method="post">
         <div class="row">
             <div class="span5">
-                <label>Prénom :</label> <input class="span5" id="prenom" alt="Prénom" placeholder="Prénom" type="text" name="prenom" required> 
-                <label>Nom :</label><input class="span5" id="nom" alt="Nom" placeholder="Nom" type="text" name="nom" required>
-                <label>Adresse Email :</label> <input class="span5" placeholder="E-mail" type="text" name="email" required> 
+                <label>Prénom :</label> <input class="span5" id="prenom"  placeholder="Prénom" type="text" name="prenom" required> 
+                <label>Nom :</label><input class="span5" id="nom" placeholder="Nom" type="text" name="nom" required>
+                <label>Adresse Email :</label> <input class="span5"  id="email" placeholder="E-mail" type="text" name="email" required> 
                 <label>Pays :</label>
-                <select class="span5" id="Pays" name="Pays" alt="Pays">
+                <select class="span5" id="Pays" name="Pays"  required>
                     <option selected value="na">
                         Choisis un pays:
                     </option>
-                    <option value="AL" alt="Allemagne">Allemagne</option>
-                    <option value="AUS" alt="Australie">Australie</option>
-                    <option value="AUT" alt="Autriche">Autriche</option>
-                    <option value="BE" alt="Belgique">Belgique</option>
-                    <option value="BR" alt="Brésil">Brésil</option>
-                    <option value="BU" alt="Bulgarie">Bulgarie</option>
-                    <option value="CAM" alt="Cameroun">Cameroun</option>
-                    <option value="CAN" alt="Canada">Canada</option>
-                    <option value="CRO" alt="Croatie">Croatie</option>
-                    <option value="ES" alt="Espagne">Espagne</option>
-                    <option value="ET" alt="Etats unis">Etats unis</option>
-                    <option value="FI" alt="Finlande">Finlande</option>
-                    <option value="FR" alt="France">France</option>
-                    <option value="GI" alt="Gibraltar">Gibraltar</option>
-                    <option value="GR" alt="Groenland">Groenland</option>
-                    <option value="HO" alt="Hongrie">Hongrie</option>
-                    <option value="IT" alt="Italie">Italie</option>
-                    <option value="JA" alt="Japon">Japon</option>
-                    <option value="PA" alt="Pays-Bas">Pays-bas</option>
-                    <option value="PO" alt="Portugal">Portugal</option>
+                    <option value="AL" >Allemagne</option>
+                    <option value="AUS" >Australie</option>
+                    <option value="AUT" >Autriche</option>
+                    <option value="BE" >Belgique</option>
+                    <option value="BR" >Brésil</option>
+                    <option value="BU" >Bulgarie</option>
+                    <option value="CAM" >Cameroun</option>
+                    <option value="CAN" >Canada</option>
+                    <option value="CRO" >Croatie</option>
+                    <option value="ES" >Espagne</option>
+                    <option value="ET" >Etats unis</option>
+                    <option value="FI" >Finlande</option>
+                    <option value="FR" >France</option>
+                    <option value="GI" >Gibraltar</option>
+                    <option value="GR" >Groenland</option>
+                    <option value="HO" >Hongrie</option>
+                    <option value="IT">Italie</option>
+                    <option value="JA">Japon</option>
+                    <option value="PA" >Pays-bas</option>
+                    <option value="PO" >Portugal</option>
                 </select>
-                    <label >Genre :</label>
-                    <select class="span5" id="genre" name="genre" alt="genre">
-                        <option selected value="na">
-                                Choisis un genre :
-                        </option>
-                        <option value="Fe" id="Femme" alt="Femme"> Femme </option>
-                        <option value="Ho" id="Homme" alt="Homme"> Homme </option>
-                    </select>
+                    <label for="genre" id="genre" >Genre :</label>
+                        <input type="radio" name="genre" value="Femme" id="Femme" required>
+                        <span>Femme</span>
+                        <input type="radio" name="genre" value="Homme" id="Homme" required>
+                        <span>Homme</span>
+                        
             </div>
+            <input type="checkbox" name="contact_me_by_fax_only" value="1" style="display:none !important" tabindex="-1" autocomplete="off">
             <div class="span7">
+            <label>Sujet :</label>
+                <select  id="sujet" name="sujet">
+                    <option selected value="na">
+                        Choisis un langage:
+                    </option>
+                    <option value="Php">PHP</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="Html">HTML</option>
+                    <option value="CSS">CSS</option>
+                </select>
                 <label>Message</label> 
                 <textarea class="input-xlarge span7" id="message" name="message" rows="10" placeholder=" Insérer votre message" required></textarea>
             </div>
@@ -68,6 +77,7 @@ $options = array(
     'email' 		=> FILTER_VALIDATE_EMAIL,
     'Pays'          => FILTER_SANITIZE_STRING,
     'genre'         => FILTER_SANITIZE_STRING,
+    'sujet'         => FILTER_SANITIZE_STRING,
     'message' 		=> FILTER_SANITIZE_STRING);
 
 
@@ -87,12 +97,36 @@ $options = array(
     {
        $result[$key]=trim($result[$key]);
     }
-
-    print_r ($result['firstname'] . "<br>");
-    print_r ( $result['lastname'] . "<br>");
-    print_r ($result['email'] . "<br>");
-    print_r ($result['country'] . "<br>");
+    
+    print_r ($result["prenom"] . "<br>");
+    print_r ( $result["nom"] . "<br>");
+    print_r ($result["email"] . "<br>");
+    print_r ($result["Pays"] . "<br>");
+    print_r ($result["genre"] . "<br>");
+    print_r ($result["sujet"]."<br>");
     print_r ($result["message"] . "<br>");
-?>
+
+
+    $honeypot = FALSE;
+if (!empty($_REQUEST['contact_me_by_fax_only']) && (bool) $_REQUEST['contact_me_by_fax_only'] == TRUE) {
+    $honeypot = TRUE;
+    log_spambot($_REQUEST);
+} else {
+    $to      = 'raphaelo0191@gmail.com';
+$subject = $result["sujet"];
+$message = 'confirmation de form';
+$headers = array(
+    'From' => $result["email"],
+    'Name' => $result["prenom"]." ".$result["nom"],
+    'Pays' => $result["Pays"],
+    'Genre' => $result["genre"],
+    'Message' => $result["message"]
+
+
+);
+
+mail($to, $subject, $message, $headers)
+}
+    ?>
 </body>
 </html>
