@@ -2,7 +2,9 @@
     font-family: "Bellota";
     src: url('../font/Bellota-Regular.otf');
 }
-
+*{
+    box-sizing: border-box;
+}
 body{
     font-family: "Bellota";
     color: #303030;
@@ -16,4 +18,12 @@ form{
     margin: 20px;
 }::placeholder{
     font-family: "Bellota";
+}
+.container{
+    display: flex;
+}
+.donnees{
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
 }

@@ -85,7 +85,7 @@ $options = array(
 
     if ($result != null AND $result != FALSE) {
 
-        echo "Clean! <br>";
+        echo "<div class='container'> <div class='well span2  donnees'> Données transmises! <br>";
     
     } else {
     
@@ -104,7 +104,7 @@ $options = array(
     print_r ($result["Pays"] . "<br>");
     print_r ($result["genre"] . "<br>");
     print_r ($result["sujet"]."<br>");
-    print_r ($result["message"] . "<br>");
+    print_r ($result["message"] . "<br>"."</div></div>");
 
 
     $honeypot = FALSE;
@@ -113,19 +113,16 @@ if (!empty($_REQUEST['contact_me_by_fax_only']) && (bool) $_REQUEST['contact_me_
     log_spambot($_REQUEST);
 } else {
     $to      = 'raphaelo0191@gmail.com';
-$subject = $result["sujet"];
-$message = 'confirmation de form';
-$headers = array(
-    'From' => $result["email"],
-    'Name' => $result["prenom"]." ".$result["nom"],
-    'Pays' => $result["Pays"],
-    'Genre' => $result["genre"],
-    'Message' => $result["message"]
-
-
-);
-
-mail($to, $subject, $message, $headers)
+    $subject = $result["sujet"];
+    $message = 'confirmation de form';
+    $headers = array(
+        'From' => $result["email"],
+        'Name' => $result["prenom"]." ".$result["nom"],
+        'Pays' => $result["Pays"],
+        'Genre' => $result["genre"],
+        'Message' => $result["message"]
+    );
+    mail($to, $subject, $message, $headers);
 }
     ?>
 </body>
